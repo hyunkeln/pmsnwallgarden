@@ -13,60 +13,85 @@
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
         <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/blueprint.css">
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/nivo-slider.css">
+        
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
-    <body>
+    <body class="">
         <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
         <!-- Add your site or application content here -->
-        <p>Hello world! This is HTML5 Boilerplate.</p>
-		<div class="als-container" id="slider-pane">
-			<span class="als-prev"><img src="images/thin_left_arrow_333.png" alt="prev" title="previous" /></span>
-			<div class="als-viewport">
-		        <ul class="pane als-wrapper">
-		        	<li class="als-item">
-	        			<a href="" target="_blank">
+        
+        <div class="container">
+        	<div class="span-3">
+        		<img src="img/pmsn.png">
+        	</div>
+        	<div class="prepend-9 span-4 last">
+        		<img src="img/infinitum.png">
+        	</div>
+        </div>
+	    <div class="container">
+	    	<div class="span-8">
+	    		<div class="als-container" id="slider-nivo">
+		    		<div class="li span-8">
+		    			<a href="" target="_blank">
 		        			<h2 style="display:none;"></h2>
-		        			<img>
-	        			</a>
-		        	</li>
-		        </ul>
+		        			<img class="span-8" style="width:200px">
+		    			</a>
+	    			</div>
+				</div>  
+	    	</div>  
+			<div class="als-container span-8 last" id="slider-pane">
+				<span class="als-prev"><img src="images/thin_left_arrow_333.png" alt="prev" title="previous" /></span>
+				<div class="als-viewport">
+			        <ul class="pane als-wrapper">
+			        	<li class="als-item">
+		        			<a href="" target="_blank">
+			        			<h2 style="display:none;"></h2>
+			        			<img>
+		        			</a>
+			        	</li>
+			        </ul>
+				</div>
+				<span class="als-next"><img src="images/thin_right_arrow_333.png" alt="next" title="next" /></span>
 			</div>
-			<span class="als-next"><img src="images/thin_right_arrow_333.png" alt="next" title="next" /></span>
-		</div>
-		<hr>
-		<div class="als-container" id="slider-items">
-			<span class="als-prev"><img src="images/thin_left_arrow_333.png" alt="prev" title="previous" /></span>
-			<div class="als-viewport">
-		        <ul class="slider als-wrapper">
-		        	<li class="als-item">
-	        			<a href="" target="_blank">
-		        			<h2 style="display:none;"></h2>
-		        			<img>
-	        			</a>
-		        	</li>
-		        </ul>
-			</div>
-			<span class="als-next"><img src="images/thin_right_arrow_333.png" alt="next" title="next" /></span>
 		</div>
 
-        <ul class="banners">
-        	<li class="als-item">
-        		<div>
-        			<a href="" target="_blank">
-	        			<img>
-        			</a>
-        		</div>
-        	</li>
-        </ul>
+		<div class="container">  
+			<div class="als-container  span-16 last" id="slider-items">
+				<span class="als-prev"><img src="images/thin_left_arrow_333.png" alt="prev" title="previous" /></span>
+				<div class="als-viewport">
+			        <ul class="slider als-wrapper">
+			        	<li class="als-item">
+		        			<a href="" target="_blank">
+			        			<h2 style="display:none;"></h2>
+			        			<img>
+		        			</a>
+			        	</li>
+			        </ul>
+				</div>
+				<span class="als-next"><img src="images/thin_right_arrow_333.png" alt="next" title="next" /></span>
+			</div>
+		</div>
+
+        <div class="banners container">
+        	<div class="li als-item  span-4">
+    			<a href="" target="_blank">
+        			<img>
+    			</a>
+        	</div>
+        </div>
+
+	    
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
         <script src="js/feeder.js"></script>
+        <script src="js/jquery.nivo.slider.js"></script>
         <script src="js/jquery.als-1.1.min.js"></script>
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
