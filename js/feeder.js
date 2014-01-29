@@ -109,7 +109,7 @@ function parseNivo(data) {
 		$(newli).find("img").attr("title",item.title);
 		$(newli).find("img").attr("alt",item.title);
 		$(newli).find("img").attr("data-thumb",itemimage);
-		$(placeHolder).append(newli);
+		$(placeHolder).append($(newli).html());
 	}
     $(placeHolder).nivoSlider({
 	    effect:'boxRainReverse',
@@ -136,7 +136,7 @@ function parsePane(data) {
 		$(newli).find("img").attr("title",item.title);
 		$(newli).find("img").attr("alt",item.title);;
 		$(newli).find("img").attr("data-thumb",itemimage);
-		$(placeHolder).append(newli);
+		$(placeHolder).append($(newli).html());
 	}
     $(placeHolder).nivoSlider({
 	    effect:'boxRain',
