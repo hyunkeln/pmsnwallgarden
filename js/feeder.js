@@ -59,14 +59,14 @@ function parseEntries(data) {
 		var item = items[i];
 		var itemimage = $(xmlsrc[i]).find("enclosure").attr("url");
 		var newli = li.clone();
-		$(newli).find("h2").text(item.title);
+		$(newli).find("span").text(item.title);
 		$(newli).find("a").attr("href",item.link);
 		$(newli).find("img").attr("src",itemimage);
 		$(placeHolder).append(newli);
 	}
 	$("#slider-items").als({
 		visible_items: 6,
-		scrolling_items: 5,
+		scrolling_items: 6,
 		orientation: "horizontal",
 		circular: "no",
 		autoscroll: "no"
