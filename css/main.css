@@ -302,3 +302,83 @@ textarea {
         page-break-after: avoid;
     }
 }
+
+
+
+
+
+.als-container {
+	position: relative;
+	width: 100%;
+	margin: 0px auto;
+	z-index: 0;
+}
+
+.als-viewport {
+	position: relative;
+	overflow: hidden;
+	margin: 0px auto;
+}
+
+.als-wrapper {
+	position: relative;
+	list-style: none;
+}
+
+.als-item {
+	position: relative;
+	display: block;
+	text-align: center;
+	cursor: pointer;
+	float: left;
+}
+
+.als-prev, .als-next {
+	position: absolute;
+	cursor: pointer;
+	clear: both;
+}
+
+
+#slider-pane {
+	margin: 40px auto;
+}
+
+#slider-pane .als-item, #slider-items .als-item {
+	margin: 0px 5px;
+	padding: 4px 0px;
+	height: 80px;
+	width: 100px;
+	text-align: center;
+	overflow: hidden;
+}
+#slider-items .als-item {
+	height: 100px;
+	width: 100px;
+}
+#slider-pane .als-item img, #slider-pane .als-item a, #slider-items .als-item img, #slider-items .als-item a{
+	height: 100%;
+}
+#slider-pane .als-item img, #slider-items .als-item img {
+	display: block;
+	margin: 0 auto;
+	vertical-align: middle;
+	margin-left: -56%;
+}
+
+#slider-pane .als-prev, #slider-pane .als-next, #slider-items .als-prev, #slider-items .als-next {
+	top: 40px;
+}
+
+#slider-pane .als-prev, #slider-items .als-prev {
+	left: 200px;
+}
+
+#slider-pane .als-next, #slider-items .als-next{
+	right: 200px;
+}
+
+
+ul.banners li{
+	margin-left: 30px;
+}
