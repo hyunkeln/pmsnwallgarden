@@ -341,7 +341,7 @@ textarea {
 
 
 #slider-pane {
-	margin: 40px auto;
+
 }
 
 #slider-pane .als-item, #slider-items .als-item {
@@ -390,4 +390,68 @@ textarea {
 
 #slider-nivo {
    width: 100%; /* Desired width */
+}
+.nivo-controlNav.nivo-thumbs-enabled{
+	width: 90%;
+	margin: auto;
+}
+.nivo-controlNav.nivo-thumbs-enabled a{
+    display: block;
+    float: left;
+}
+.nivo-controlNav.nivo-thumbs-enabled a img{
+	width: 100%;
+}
+.white .nivo-caption {
+    background-color: #FFFFFF;
+    color: #000000;
+    font-size: 11px;
+    padding: 1px;
+    text-align: center;
+}
+.white .nivo-thumbs-enabled {
+    margin-top: -70px;
+    position: relative;
+    z-index: 1;
+}
+.gray .nivo-controlNav{
+	margin-top: -62px;
+	position: relative;
+}
+.gray .nivo-control{
+	background-color: #808080;
+    border: 2px solid #A9A9A9;
+    color: transparent;
+    display: inline-block;
+    height: 7px;
+    width: 7px;
+    border-radius: 7px;
+}
+.gray .nivo-control.active{
+    background-color: white;
+}
+.gray .nivo-control{
+	margin-right: 3px;
+}
+.gray .nivo-control:last-child{
+	margin-right: 0px;
+}
+.white .nivo-thumbs-enabled .nivo-control{
+    border: 1px solid gray;
+    margin: -1px;
+}
+.white .nivo-thumbs-enabled .nivo-control.active{
+    border: 1px solid red;
+}
+.white .nivo-directionNav a{
+	width: 5%;
+	background: url("../img/arrow.png") no-repeat 50%;
+	top: 148px;
+	height: 39px;
+	color: transparent;
+}
+.white .nivo-directionNav a.nivo-nextNav{
+	transform:rotate(180deg);
+	-ms-transform:rotate(180deg); /* IE 9 */
+	-webkit-transform:rotate(180deg); /* Safari and Chrome */
 }

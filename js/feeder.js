@@ -23,7 +23,7 @@ function parseMainFeed(data){
 	parseNivo(data);
 }
 
-function parsePane(data) {
+function parsePane2(data) {
 	data.responseData.xmlString = data.responseData.xmlString.replace(/msncp\:/g, 'msncp');
 	var placeHolder = "ul.pane";
 	var items = data.responseData.feed.entries;
@@ -100,21 +100,52 @@ function parseNivo(data) {
 	var xmlsrc = $(data.responseData.xmlString).find("item");
 	var li = $(placeHolder+" .li");
 	$(placeHolder+" .li").remove();
-	for(var j=0;j<items.length;j++){
+	for(var j=0;j<items.length/2;j++){
 		var item = items[j];
 		var itemimage = $(xmlsrc[j]).find("enclosure").attr("url");
 		var newli = li.clone();
-		//$(newli).find("h2").text(item.title);
 		$(newli).find("a").attr("href",item.link);
 		$(newli).find("img").attr("src",itemimage);
+		$(newli).find("img").attr("title",item.title);
+		$(newli).find("img").attr("alt",item.title);
 		$(newli).find("img").attr("data-thumb",itemimage);
 		$(placeHolder).append(newli);
 	}
     $(placeHolder).nivoSlider({
-	    effect:'fade',
-	    slices:1,
-	    pauseTime: 10000,
-	    controlNavThumbs:false
+	    effect:'boxRainReverse',
+	    slices: 20,
+	    pauseTime: 4200,
+	    controlNavThumbs:false,
+	    directionNav: false
+    });
+
+}
+function parsePane(data) {
+	data.responseData.xmlString = data.responseData.xmlString.replace(/msncp\:/g, 'msncp');
+	var placeHolder = "#slider-pane";
+	var items = data.responseData.feed.entries;
+	var xmlsrc = $(data.responseData.xmlString).find("item");
+	var li = $(placeHolder+" .li");
+	$(placeHolder+" .li").remove();
+	for(var j=items.length/2;j<items.length;j++){
+		var item = items[j];
+		var itemimage = $(xmlsrc[j]).find("enclosure").attr("url");
+		var newli = li.clone();
+		$(newli).find("a").attr("href",item.link);
+		$(newli).find("img").attr("src",itemimage)
+		$(newli).find("img").attr("title",item.title);
+		$(newli).find("img").attr("alt",item.title);;
+		$(newli).find("img").attr("data-thumb",itemimage);
+		$(placeHolder).append(newli);
+	}
+    $(placeHolder).nivoSlider({
+	    effect:'boxRain',
+	    slices:20,
+	    pauseTime: 3100,
+	    controlNavThumbs:true,
+	    afterLoad:function(){
+		    $(".nivo-controlNav.nivo-thumbs-enabled a").css("width",(100/(items.length-items.length/2))+"%");
+	    }
     });
 
 }
