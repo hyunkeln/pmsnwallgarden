@@ -1,16 +1,31 @@
+//231x193
 $(document).ready(function () {
-	var url = "http://prodigy.msn.com/rss-slideshow-telmex-interiores.aspx";
+	top.location.search
+	var url="";
+	var url3="";
+	if(top.location.search.indexOf("usuarioConSesion")>-1) url = "http://entretenimiento.prodigy.msn.com/rss-carrouselinfopane.aspx";//"http://prodigy.msn.com/rss-slideshow-telmex-interiores.aspx"; //URL Con sesión
+	else url = "http://prodigy.msn.com/rss-slideshow-telmex.aspx"
 	$.ajax({
 		url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(url),
 		dataType: 'json',
 		success: parseEntries
   });
-  url = "http://prodigy.msn.com/rss-slideshow-telmex.aspx";
+  if(top.location.search.indexOf("usuarioConSesion")>-1) url = "http://estilos.prodigy.msn.com/rss-carrouselinfopane.aspx";//"http://prodigy.msn.com/rss-slideshow-telmex.aspx"; //Url con sesión
+  else url = "http://prodigy.msn.com/rss-slideshow-telmex.aspx"
   $.ajax({
 		url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(url),
 		dataType: 'json',
-		success: parseMainFeed
+		success: parsePane
   });
+  if(top.location.search.indexOf("usuarioConSesion")>-1)  url3="http://noticias.prodigy.msn.com/rss-carrouselinfopane.aspx";//, //urlcon sesión
+  else url = "http://prodigy.msn.com/rss-slideshow-telmex.aspx";
+  $.ajax({
+		url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(url),
+		dataType: 'json',
+		success: parseNivo
+  });
+
+
   $.ajax({
 		url:"http://msn-rd.com/eservicios/json/bannerswg",
 		dataType: 'jsonp',
@@ -18,10 +33,6 @@ $(document).ready(function () {
   });
 });
 
-function parseMainFeed(data){
-	parsePane(data);
-	parseNivo(data);
-}
 
 function parsePane2(data) {
 	data.responseData.xmlString = data.responseData.xmlString.replace(/msncp\:/g, 'msncp');
