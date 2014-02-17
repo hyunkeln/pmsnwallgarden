@@ -17,8 +17,8 @@ $(document).ready(function () {
 		dataType: 'json',
 		success: parsePane
   });
-  if(top.location.search.indexOf("usuarioConSesion")>-1)  url3="http://noticias.prodigy.msn.com/rss-carrouselinfopane.aspx";//, //urlcon sesión
-  else url = "http://prodigy.msn.com/rss-slideshow-telmex.aspx";
+  if(top.location.search.indexOf("usuarioConSesion")>-1)  url3="http://olimpiadas.clarosports.com/mrss/video/clarosports.xml";//url3="http://noticias.prodigy.msn.com/rss-carrouselinfopane.aspx";//, //urlcon sesión
+  else url = "http://olimpiadas.clarosports.com/mrss/video/clarosports.xml";//"http://prodigy.msn.com/rss-slideshow-telmex.aspx";
   $.ajax({
 		url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(url),
 		dataType: 'json',

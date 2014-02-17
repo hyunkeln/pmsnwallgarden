@@ -18,6 +18,31 @@
         <link rel="stylesheet" href="css/nivo-slider.css">
         
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+        <script type='text/javascript'>
+		var googletag = googletag || {};
+		googletag.cmd = googletag.cmd || [];
+		(function() {
+		var gads = document.createElement('script');
+		gads.async = true;
+		gads.type = 'text/javascript';
+		var useSSL = 'https:' == document.location.protocol;
+		gads.src = (useSSL ? 'https:' : 'http:') +
+		'//www.googletagservices.com/tag/js/gpt.js';
+		var node = document.getElementsByTagName('script')[0];
+		node.parentNode.insertBefore(gads, node);
+		})();
+		</script>
+		 
+		<script type='text/javascript'>
+		googletag.cmd.push(function() {
+		googletag.defineSlot('/8801923/Test-Slot-1', [231, 193], 'div-gpt-ad-1392660257542-0').addService(googletag.pubads());
+		googletag.defineSlot('/8801923/Test-Slot-2', [231, 193], 'div-gpt-ad-1392660257542-1').addService(googletag.pubads());
+		googletag.defineSlot('/8801923/Test-Slot-3', [231, 193], 'div-gpt-ad-1392660257542-2').addService(googletag.pubads());
+		googletag.defineSlot('/8801923/Test-Slot-4', [231, 193], 'div-gpt-ad-1392660257542-3').addService(googletag.pubads());
+		googletag.pubads().enableSingleRequest();
+		googletag.enableServices();
+		});
+		</script>
     </head>
     <body class="">
         <!--[if lt IE 7]>
@@ -75,11 +100,33 @@
 			</div>
 		</div>
         <div class="banners container">
-        	<div class="li als-item  span-4">
-    			<a href="" target="_blank">
-        			<img>
-    			</a>
-        	</div>
+    		<!-- Test-Slot-1 -->
+			<div id='div-gpt-ad-1392660257542-0' class="als-item  span-4">
+			<script type='text/javascript'>
+			googletag.cmd.push(function() { googletag.display('div-gpt-ad-1392660257542-0'); });
+			</script>
+			</div>
+			
+			<!-- Test-Slot-2 -->
+			<div id='div-gpt-ad-1392660257542-1' class="als-item  span-4">
+			<script type='text/javascript'>
+			googletag.cmd.push(function() { googletag.display('div-gpt-ad-1392660257542-1'); });
+			</script>
+			</div>
+			
+			<!-- Test-Slot-3 -->
+			<div id='div-gpt-ad-1392660257542-2' class="als-item  span-4">
+			<script type='text/javascript'>
+			googletag.cmd.push(function() { googletag.display('div-gpt-ad-1392660257542-2'); });
+			</script>
+			</div>
+			
+			<!-- Test-Slot-4 --> 
+			<div id='div-gpt-ad-1392660257542-3' class="als-item  span-4 last">
+			<script type='text/javascript'>
+			googletag.cmd.push(function() { googletag.display('div-gpt-ad-1392660257542-3'); });
+			</script>
+			</div>
         </div>
 
 	    
