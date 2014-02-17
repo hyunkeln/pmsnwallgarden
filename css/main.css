@@ -426,7 +426,7 @@ textarea {
     text-align: center;
 }
 .white .nivo-thumbs-enabled {
-    margin-top: -70px;
+    margin-top: -57px;
     position: relative;
     z-index: 1;
 }
@@ -462,7 +462,7 @@ textarea {
 .white .nivo-directionNav a{
 	width: 5%;
 	background: url("../img/arrow.png") no-repeat 50%;
-	top: 148px;
+	top: 77px;
 	height: 39px;
 	color: transparent;
 }
@@ -492,4 +492,7 @@ ul.als-wrapper{
 }
 .logos{
 	margin-bottom: 25px;
+}
+#slider-right.nivoSlider {
+    height: 204px;
 }

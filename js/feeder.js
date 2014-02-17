@@ -101,7 +101,7 @@ function parseRight(data) {
 		$(placeHolder).append($(newli).html());
 	}
     $(placeHolder).nivoSlider({
-	    effect:'boxRain',
+	    effect:'fade',
 	    slices:20,
 	    pauseTime: 3100,
 	    controlNavThumbs:true,
