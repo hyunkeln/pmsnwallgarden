@@ -2,18 +2,19 @@
 $(document).ready(function () {
 	top.location.search
 	var url="";
+	var url2="";
 	var url3="";
-	if(top.location.search.indexOf("usuarioConSesion")>-1) url = "http://entretenimiento.prodigy.msn.com/rss-carrouselinfopane.aspx";
-	else url = "http://prodigy.msn.com/rss-slideshow-telmex.aspx"
+	if(top.location.search.indexOf("usuarioConSesion")>-1) url3 = "http://entretenimiento.prodigy.msn.com/rss-carrouselinfopane.aspx";
+	else url3 = "http://prodigy.msn.com/rss-slideshow-telmex.aspx"
 	$.ajax({
-		url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(url),
+		url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(url3),
 		dataType: 'json',
 		success: parseCenter
   });
-  if(top.location.search.indexOf("usuarioConSesion")>-1)  url="http://olimpiadas.clarosports.com/mrss/video/clarosports.xml";
-  else url = "http://olimpiadas.clarosports.com/mrss/video/clarosports.xml";//"http://prodigy.msn.com/rss-slideshow-telmex.aspx";
+  if(top.location.search.indexOf("usuarioConSesion")>-1)  url2="http://olimpiadas.clarosports.com/mrss/video/clarosports.xml";
+  else url2 = "http://olimpiadas.clarosports.com/mrss/video/clarosports.xml";//"http://prodigy.msn.com/rss-slideshow-telmex.aspx";
   $.ajax({
-		url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(url),
+		url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(url2),
 		dataType: 'json',
 		success: parseRight
   });
