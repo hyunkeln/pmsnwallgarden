@@ -496,3 +496,20 @@ ul.als-wrapper{
 #slider-right.nivoSlider {
     height: 204px;
 }
+
+/*PMSN fixes*/
+#simplemodal-container .ro .ce{
+	width: 100%;
+}
+#simplemodal-container .svrichtxt p{
+	text-align: left;
+}
+#simplemodal-container li {
+    display: block;
+    float: left;
+    margin-right: 9px;
+    width: 15%;
+}
+#simplemodal-container a{
+	color: black;
+}

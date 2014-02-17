@@ -1,6 +1,5 @@
 //231x193
 $(document).ready(function () {
-	top.location.search
 	var url="";
 	var url2="";
 	var url3="";
@@ -100,7 +99,7 @@ function parseRight(data) {
 		$(placeHolder).append($(newli).html());
 	}
     $(placeHolder).nivoSlider({
-	    effect:'fade',
+	    effect:'boxRain',
 	    slices:20,
 	    pauseTime: 3100,
 	    controlNavThumbs:true,
@@ -109,4 +108,41 @@ function parseRight(data) {
 	    }
     });
 
+}
+function getUrl(url){
+	//url ="http://noticias.prodigy.msn.com/rnw/m%C3%A9xico-muerte-made-in-germany"; 
+	$.getJSON("http://query.yahooapis.com/v1/public/yql?"+
+                "q=select%20*%20from%20html%20where%20url%3D%22"+
+                encodeURIComponent(url)+
+                "%22&format=xml'&callback=?",
+        // this function gets the data from the successful 
+        // JSON-P call
+        function(data){
+          // if there is data, filter it and render it out
+          if(data.results[0]){
+          	var xmlsrc = $(data.results[0]).find("#area1");
+          	$(xmlsrc).find("script").remove();
+          	$(xmlsrc).find("a").each(function(){
+	          	var href=$(this).attr("href");
+	          	$(this).attr("href","javascript:void(0)");
+	          	$(this).attr("onclick","getUrl('"+href+"')");
+          	});
+
+          	$(xmlsrc).modal(	{containerCss:{
+									backgroundColor:"#fff", 
+									borderColor:"#fff", 
+									height:650, 
+									padding:0, 
+									width:830
+								},
+								overlayClose:true
+								}
+							);
+          // otherwise tell the world that something went wrong
+          } else {
+            var errormsg = '<p>Error: can\'t load the page.</p>';
+            container.html(errormsg);
+          }
+        }
+      );	
 }
