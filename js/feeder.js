@@ -3,21 +3,21 @@ $(document).ready(function () {
 	top.location.search
 	var url="";
 	var url3="";
-	if(top.location.search.indexOf("usuarioConSesion")>-1) url = "http://entretenimiento.prodigy.msn.com/rss-carrouselinfopane.aspx";//"http://prodigy.msn.com/rss-slideshow-telmex-interiores.aspx"; //URL Con sesión
+	if(top.location.search.indexOf("usuarioConSesion")>-1) url = "http://entretenimiento.prodigy.msn.com/rss-carrouselinfopane.aspx";
 	else url = "http://prodigy.msn.com/rss-slideshow-telmex.aspx"
 	$.ajax({
 		url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(url),
 		dataType: 'json',
 		success: parseCenter
   });
-  if(top.location.search.indexOf("usuarioConSesion")>-1)  url3="http://olimpiadas.clarosports.com/mrss/video/clarosports.xml";//url3="http://noticias.prodigy.msn.com/rss-carrouselinfopane.aspx";//, //urlcon sesión
+  if(top.location.search.indexOf("usuarioConSesion")>-1)  url="http://olimpiadas.clarosports.com/mrss/video/clarosports.xml";
   else url = "http://olimpiadas.clarosports.com/mrss/video/clarosports.xml";//"http://prodigy.msn.com/rss-slideshow-telmex.aspx";
   $.ajax({
 		url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(url),
 		dataType: 'json',
 		success: parseRight
   });
-  if(top.location.search.indexOf("usuarioConSesion")>-1) url = "http://estilos.prodigy.msn.com/rss-carrouselinfopane.aspx";//"http://prodigy.msn.com/rss-slideshow-telmex.aspx"; //Url con sesión
+  if(top.location.search.indexOf("usuarioConSesion")>-1) url = "http://estilos.prodigy.msn.com/rss-carrouselinfopane.aspx";
   else url = "http://prodigy.msn.com/rss-slideshow-telmex.aspx"
 
   $.ajax({
