@@ -43,6 +43,7 @@ function parseCenter(data) {
 		if(top.location.search.indexOf("usuarioConSesion")>-1) {
 			$(newli).find("a").attr("href",item.link);
 			$(newli).find("a").attr("target","_blank");
+			$(newli).find("a").attr("onclick",'pageTracker._trackEvent("External Content", "Open", "'+item.link+'")');
 		}else{
 			$(newli).find("a").attr("href","javascript:void(0);");
 			$(newli).find("a").attr("onclick","getUrl('"+item.link+"')");
@@ -73,6 +74,7 @@ function parseLeft(data) {
 		if(top.location.search.indexOf("usuarioConSesion")>-1) {
 			$(newli).find("a").attr("href",item.link);
 			$(newli).find("a").attr("target","_blank");
+			$(newli).find("a").attr("onclick",'pageTracker._trackEvent("External Content", "Open", "'+item.link+'")');
 		}else{
 			$(newli).find("a").attr("href","javascript:void(0);");
 			$(newli).find("a").attr("onclick","getUrl('"+item.link+"')");
@@ -106,6 +108,8 @@ function parseRight(data) {
 		if(top.location.search.indexOf("usuarioConSesion")>-1) {
 			$(newli).find("a").attr("href",item.link);
 			$(newli).find("a").attr("target","_blank");
+			$(newli).find("a").attr("onclick",'pageTracker._trackEvent("External Content", "Open", "'+item.link+'")');
+			
 		}else{
 			$(newli).find("a").attr("href","javascript:void(0);");
 			$(newli).find("a").attr("onclick","getUrl('"+item.link+"')");
@@ -137,7 +141,7 @@ function getUrl(url){
         // this function gets the data from the successful 
         // JSON-P call
         function(data){
-        	
+        	pageTracker._trackEvent("External Content", "Modal", url);
 
           // if there is data, filter it and render it out
           if(data.results[0]){
