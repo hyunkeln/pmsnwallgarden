@@ -163,7 +163,7 @@ function getUrl(url){
 	          	xmlsrc = $("<iframe src='"+url+"'/>");
 	          	
           	}
-          	//$.modal.close();
+          	$.modal.close();
           	$(xmlsrc).modal(	{containerCss:{
 									backgroundColor:"#fff", 
 									borderColor:"#fff", 
