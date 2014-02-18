@@ -508,8 +508,24 @@ ul.als-wrapper{
     display: block;
     float: left;
     margin-right: 9px;
-    width: 15%;
+    width: 11%;
 }
 #simplemodal-container a{
 	color: black;
+}
+#simplemodal-container .pvmain .pvthmbnlct{
+	display: none;
+}
+#simplemodal-container .pvcontrols > p {
+    float: right;
+    margin: 0;
+}
+#simplemodal-container #scplatformComments{
+	display: none;
+}
+#simplemodal-container iframe{
+	width: 100%;
+	height: 100%;
+	border: none;
+	overflow: none;
 }

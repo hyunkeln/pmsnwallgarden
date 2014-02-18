@@ -3,7 +3,7 @@ $(document).ready(function () {
 	var url="";
 	var url2="";
 	var url3="";
-	//if(top.location.search.indexOf("usuarioConSesion")>-1) 
+	//
 	url3 = "http://prodigy.msn.com/rss-slideshow-telmex.aspx"
 	$.ajax({
 		url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(url3),
@@ -40,7 +40,13 @@ function parseCenter(data) {
 		var itemimage = $(xmlsrc[i]).find("enclosure").attr("url");
 		var newli = li.clone();
 		$(newli).find("span").text(item.title);
-		$(newli).find("a").attr("href",item.link);
+		if(top.location.search.indexOf("usuarioConSesion")>-1) {
+			$(newli).find("a").attr("href",item.link);
+			$(newli).find("a").attr("target","_blank");
+		}else{
+			$(newli).find("a").attr("href","javascript:void(0);");
+			$(newli).find("a").attr("onclick","getUrl('"+item.link+"')");
+		}
 		$(newli).find("img").attr("src",itemimage);
 		$(placeHolder).append(newli);
 	}
@@ -64,7 +70,13 @@ function parseLeft(data) {
 		var item = items[j];
 		var itemimage = $(xmlsrc[j]).find("enclosure").attr("url");
 		var newli = li.clone();
-		$(newli).find("a").attr("href",item.link);
+		if(top.location.search.indexOf("usuarioConSesion")>-1) {
+			$(newli).find("a").attr("href",item.link);
+			$(newli).find("a").attr("target","_blank");
+		}else{
+			$(newli).find("a").attr("href","javascript:void(0);");
+			$(newli).find("a").attr("onclick","getUrl('"+item.link+"')");
+		}
 		$(newli).find("img").attr("src",itemimage);
 		$(newli).find("img").attr("title",item.title);
 		$(newli).find("img").attr("alt",item.title);
@@ -91,7 +103,13 @@ function parseRight(data) {
 		var item = items[j];
 		var itemimage = $(xmlsrc[j]).find("videoImage").attr("url");
 		var newli = li.clone();
-		$(newli).find("a").attr("href",item.link);
+		if(top.location.search.indexOf("usuarioConSesion")>-1) {
+			$(newli).find("a").attr("href",item.link);
+			$(newli).find("a").attr("target","_blank");
+		}else{
+			$(newli).find("a").attr("href","javascript:void(0);");
+			$(newli).find("a").attr("onclick","getUrl('"+item.link+"')");
+		}
 		$(newli).find("img").attr("src",itemimage)
 		$(newli).find("img").attr("title",item.title);
 		$(newli).find("img").attr("alt",item.title);;
@@ -111,6 +129,7 @@ function parseRight(data) {
 }
 function getUrl(url){
 	//url ="http://noticias.prodigy.msn.com/rnw/m%C3%A9xico-muerte-made-in-germany"; 
+	
 	$.getJSON("http://query.yahooapis.com/v1/public/yql?"+
                 "q=select%20*%20from%20html%20where%20url%3D%22"+
                 encodeURIComponent(url)+
@@ -118,16 +137,29 @@ function getUrl(url){
         // this function gets the data from the successful 
         // JSON-P call
         function(data){
+        	
+
           // if there is data, filter it and render it out
           if(data.results[0]){
-          	var xmlsrc = $(data.results[0]).find("#area1");
-          	$(xmlsrc).find("script").remove();
-          	$(xmlsrc).find("a").each(function(){
-	          	var href=$(this).attr("href");
-	          	$(this).attr("href","javascript:void(0)");
-	          	$(this).attr("onclick","getUrl('"+href+"')");
-          	});
 
+          	var placeHolder = "#area1";
+          	if(url.indexOf("clarosports")>-1) placeHolder = "article.dcm-article";
+          	if(url.indexOf("video.mx.msn.com")>-1 || url.indexOf("clarosports")>-1) placeHolder ="";
+          	var xmlsrc ="";
+          	if(placeHolder!="") xmlsrc = $(data.results[0]).find(placeHolder);
+          	else xmlsrc = data.results[0];
+          	if(placeHolder!=""){
+	          	$(xmlsrc).find("script").remove();
+	          	$(xmlsrc).find("a").each(function(){
+		          	var href=$(this).attr("href");
+		          	$(this).attr("href","javascript:void(0)");
+		          	$(this).attr("onclick","getUrl('"+href+"')");
+	          	});
+          	}else{
+	          	xmlsrc = $("<iframe src='"+url+"'/>");
+	          	
+          	}
+          	$.modal.close();
           	$(xmlsrc).modal(	{containerCss:{
 									backgroundColor:"#fff", 
 									borderColor:"#fff", 
