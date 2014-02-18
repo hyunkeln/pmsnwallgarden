@@ -408,8 +408,10 @@ textarea {
    width: 100%; /* Desired width */
 }
 .nivo-controlNav.nivo-thumbs-enabled{
-	width: 90%;
+	width: 100%;
 	margin: auto;
+	overflow: hidden;
+
 }
 .nivo-controlNav.nivo-thumbs-enabled a{
     display: block;
@@ -453,11 +455,11 @@ textarea {
 	margin-right: 0px;
 }
 .white .nivo-thumbs-enabled .nivo-control{
-    border: 1px solid gray;
-    margin: -1px;
+    background-color: gray;
+    padding: 1px;
 }
 .white .nivo-thumbs-enabled .nivo-control.active{
-    border: 1px solid red;
+    background-color: red;
 }
 .white .nivo-directionNav{
 	display: none;

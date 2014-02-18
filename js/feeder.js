@@ -126,7 +126,7 @@ function parseRight(data) {
 	    pauseTime: 3100,
 	    controlNavThumbs:true,
 	    afterLoad:function(){
-		    $(".nivo-controlNav.nivo-thumbs-enabled a").css("width",(100/(items.length-items.length/2))+"%");
+		    $(".nivo-controlNav.nivo-thumbs-enabled a").css("width",(95/(items.length-items.length/2))+"%");
 	    }
     });
 
