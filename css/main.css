@@ -459,6 +459,9 @@ textarea {
 .white .nivo-thumbs-enabled .nivo-control.active{
     border: 1px solid red;
 }
+.white .nivo-directionNav{
+	display: none;
+}
 .white .nivo-directionNav a{
 	width: 5%;
 	background: url("../img/arrow.png") no-repeat 50%;

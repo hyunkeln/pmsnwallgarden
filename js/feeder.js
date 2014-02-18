@@ -67,7 +67,7 @@ function parseLeft(data) {
 	var xmlsrc = $(data.responseData.xmlString).find("item");
 	var li = $(placeHolder+" .li");
 	$(placeHolder+" .li").remove();
-	for(var j=0;j<items.length/2;j++){
+	for(var j=0;j<items.length;j++){
 		var item = items[j];
 		var itemimage = $(xmlsrc[j]).find("enclosure").attr("url");
 		var newli = li.clone();
@@ -141,7 +141,7 @@ function getUrl(url){
         // this function gets the data from the successful 
         // JSON-P call
         function(data){
-        	pageTracker._trackEvent("External Content", "Modal", url);
+        	//pageTracker._trackEvent("External Content", "Modal", url);
 
           // if there is data, filter it and render it out
           if(data.results[0]){
