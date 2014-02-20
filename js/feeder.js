@@ -132,5 +132,5 @@ function parseRight(data) {
 
 }
 function getUrl(url){
-	top.location("https://infinitummovil.net/InfinitumMovil/login.do");	
+	top.location ="https://infinitummovil.net/InfinitumMovil/login.do";	
 }
