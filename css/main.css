@@ -538,3 +538,6 @@ ul.als-wrapper{
 	float: left;
 	left:0px;
 }
+.als-prev img, .als-next img{
+	display: none;
+}
