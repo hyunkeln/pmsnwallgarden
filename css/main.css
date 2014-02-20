@@ -534,3 +534,7 @@ ul.als-wrapper{
 	border: none;
 	overflow: none;
 }
+.als-prev{
+	float: left;
+	left:0px;
+}

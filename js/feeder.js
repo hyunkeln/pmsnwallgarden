@@ -55,7 +55,7 @@ function parseCenter(data) {
 		visible_items: 6,
 		scrolling_items: 6,
 		orientation: "horizontal",
-		circular: "no",
+		circular: "yes",
 		autoscroll: "no"
 	});
 }
