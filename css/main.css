@@ -484,7 +484,7 @@ textarea {
 }
 .als-container span.als-next{
 	left: 95%;
-	transform: rotate(180deg);
+	background: url("../img/arrow2i.png") no-repeat scroll 100% 50% rgba(0, 0, 0, 0);
 }
 ul.als-wrapper{
 	padding: 0;
