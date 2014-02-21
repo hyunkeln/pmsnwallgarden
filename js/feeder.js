@@ -157,16 +157,23 @@ function parseRight(data) {
 					$(xmlsrc).prepend('<link rel="stylesheet" type="text/css" href="//media-social.s-msn.com/s/css/18.55/higorange/ue.es-mx.min.css" media="all" />');
 					$(xmlsrc).prepend('<link rel="stylesheet" type="text/css" href="http://blu.stc.s-msn.com/br/csl/css/8B7F19A00C010773401DD551FA7F95B0/gtl_sitegeneric.css" media="all" />');                       
 					$(xmlsrc).find("a").each(function(){
-					var href=$(this).attr("href");
+					var href=$(this).attr("href"); 
 					$(this).attr("href","javascript:void(0)");
-					$(this).attr("onclick","getUrl('"+href+"')");
+					$(this).attr("onclick","top.location='https://infinitummovil.net/InfinitumMovil/login.do'");
 					});
 		       }else{
 		           //xmlsrc = $("<iframe src='"+url+"'/>");
 		           var description = $(data.results[0]).find(".vxp_info_desc").text();
-		           xmlsrc = $("<div></div>").append("<div class='pvtitle customload'><p>"+$(obj).find("span").text()+"</p></div>").append($(obj).find("img").clone()).append("<p>"+description+"</p>");
+		           //if(description=="") $(data.results[0]).find(".dcm-articleTitle").text();
+		           
+		           var title = $(obj).find("span").text();
+		           if(placeHolder == "") title = $(data.results[0]).find(".dcm-articleTitle").text();
+
+		           		           
+		           xmlsrc = $("<div></div>").append("<div class='pvtitle customload'><p>"+title+"</p></div>").append($(obj).find("img").clone().fadeIn()).append("<p>"+description+"</p>");
 		       }
 		       $.modal.close();
+		       $(xmlsrc).append("<button onclick='top.location=\"https://infinitummovil.net/InfinitumMovil/login.do\"'>Para ver más haz login</button>");
 		       $(xmlsrc).modal(        {containerCss:{
 		                                   backgroundColor:"#fff", 
 		                                   borderColor:"#fff", 
