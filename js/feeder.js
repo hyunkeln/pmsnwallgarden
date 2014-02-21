@@ -133,7 +133,17 @@ function parseRight(data) {
 }
  function getUrl(url,obj){
 	//url ="http://noticias.prodigy.msn.com/rnw/m%C3%A9xico-muerte-made-in-germany"; 
-	
+	var loader = "<div class='loader'><img src='img/ajax-loader.gif'></div>";
+	$(loader).modal(        {containerCss:{
+                               backgroundColor:"transparent", 
+                               borderColor:"transparent", 
+                               height:50, 
+                               padding:0, 
+                               width:50
+                               },
+                           close:false
+                           }
+                   );
 	$.getJSON("http://query.yahooapis.com/v1/public/yql?"+
 	        "q=select%20*%20from%20html%20where%20url%3D%22"+
 	        encodeURIComponent(url)+
@@ -170,14 +180,14 @@ function parseRight(data) {
 		           if(placeHolder == "") title = $(data.results[0]).find(".dcm-articleTitle").text();
 
 		           		           
-		           xmlsrc = $("<div></div>").append("<div class='pvtitle customload'><p>"+title+"</p></div>").append($(obj).find("img").clone().fadeIn()).append("<p>"+description+"</p>");
+		           xmlsrc = $("<div></div>").append("<div class='pvtitle customload'><p>"+title+"</p></div>").append($(obj).find("img").clone().css("visibility","visible").show()).append("<p>"+description+"</p>");
 		       }
 		       $.modal.close();
 		       $(xmlsrc).append("<button onclick='top.location=\"https://infinitummovil.net/InfinitumMovil/login.do\"'>Para ver más haz login</button>");
 		       $(xmlsrc).modal(        {containerCss:{
 		                                   backgroundColor:"#fff", 
 		                                   borderColor:"#fff", 
-		                                   height:650, 
+		                                   height:500, 
 		                                   padding:0, 
 		                                   width:660
 		                                   },
