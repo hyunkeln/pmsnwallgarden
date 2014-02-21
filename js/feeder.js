@@ -46,14 +46,14 @@ function parseCenter(data) {
 			$(newli).find("a").attr("onclick",'pageTracker._trackEvent("External Content", "Open", "'+item.link+'")');
 		}else{
 			$(newli).find("a").attr("href","javascript:void(0);");
-			$(newli).find("a").attr("onclick","getUrl('"+item.link+"')");
+			$(newli).find("a").attr("onclick","getUrl('"+item.link+"',this)");
 		}
 		$(newli).find("img").attr("src",itemimage);
 		$(placeHolder).append(newli);
 	}
 	$("#slider-center").als({
-		visible_items: 6,
-		scrolling_items: 6,
+		visible_items: 5,
+		scrolling_items: 3,
 		orientation: "horizontal",
 		circular: "yes",
 		autoscroll: "no"
@@ -77,7 +77,7 @@ function parseLeft(data) {
 			$(newli).find("a").attr("onclick",'pageTracker._trackEvent("External Content", "Open", "'+item.link+'")');
 		}else{
 			$(newli).find("a").attr("href","javascript:void(0);");
-			$(newli).find("a").attr("onclick","getUrl('"+item.link+"')");
+			$(newli).find("a").attr("onclick","getUrl('"+item.link+"',this)");
 		}
 		$(newli).find("img").attr("src",itemimage);
 		$(newli).find("img").attr("title",item.title);
@@ -112,7 +112,7 @@ function parseRight(data) {
 			
 		}else{
 			$(newli).find("a").attr("href","javascript:void(0);");
-			$(newli).find("a").attr("onclick","getUrl('"+item.link+"')");
+			$(newli).find("a").attr("onclick","getUrl('"+item.link+"',this)");
 		}
 		$(newli).find("img").attr("src",itemimage)
 		$(newli).find("img").attr("title",item.title);
@@ -131,6 +131,57 @@ function parseRight(data) {
     });
 
 }
-function getUrl(url){
-	top.location ="https://infinitummovil.net/InfinitumMovil/login.do";	
-}
+ function getUrl(url,obj){
+	//url ="http://noticias.prodigy.msn.com/rnw/m%C3%A9xico-muerte-made-in-germany"; 
+	
+	$.getJSON("http://query.yahooapis.com/v1/public/yql?"+
+	        "q=select%20*%20from%20html%20where%20url%3D%22"+
+	        encodeURIComponent(url)+
+	        "%22&format=xml'&callback=?",
+		// this function gets the data from the successful 
+		// JSON-P call
+		function(data){
+		  //pageTracker._trackEvent("External Content", "Modal", url);
+		  // if there is data, filter it and render it out
+		  if(data.results[0]){ 
+		       var placeHolder = "#area1";
+		       if(url.indexOf("clarosports")>-1) placeHolder = "article.dcm-article";
+		       if(url.indexOf("video.mx.msn.com")>-1 || url.indexOf("clarosports")>-1) placeHolder ="";
+		       var xmlsrc ="";
+		       if(placeHolder!="") xmlsrc = $(data.results[0]).find(placeHolder);
+		       else xmlsrc = data.results[0];
+		       if(placeHolder!=""){
+					$(xmlsrc).find(".editchoice").parent().parent().remove();
+					$(xmlsrc).find("script,#prearea1,#postarea1,form,.pst_dt,.editchoice").remove();
+					
+					$(xmlsrc).prepend('<link rel="stylesheet" type="text/css" href="//media-social.s-msn.com/s/css/18.55/higorange/ue.es-mx.min.css" media="all" />');
+					$(xmlsrc).prepend('<link rel="stylesheet" type="text/css" href="http://blu.stc.s-msn.com/br/csl/css/8B7F19A00C010773401DD551FA7F95B0/gtl_sitegeneric.css" media="all" />');                       
+					$(xmlsrc).find("a").each(function(){
+					var href=$(this).attr("href");
+					$(this).attr("href","javascript:void(0)");
+					$(this).attr("onclick","getUrl('"+href+"')");
+					});
+		       }else{
+		           //xmlsrc = $("<iframe src='"+url+"'/>");
+		           var description = $(data.results[0]).find(".vxp_info_desc").text();
+		           xmlsrc = $("<div></div>").append("<div class='pvtitle customload'><p>"+$(obj).find("span").text()+"</p></div>").append($(obj).find("img").clone()).append("<p>"+description+"</p>");
+		       }
+		       $.modal.close();
+		       $(xmlsrc).modal(        {containerCss:{
+		                                   backgroundColor:"#fff", 
+		                                   borderColor:"#fff", 
+		                                   height:650, 
+		                                   padding:0, 
+		                                   width:660
+		                                   },
+		                               overlayClose:true
+		                               }
+		                       );
+		  // otherwise tell the world that something went wrong
+		  } else {
+		    var errormsg = '<p>Error: can\'t load the page.</p>';
+		    container.html(errormsg);
+		  }
+		}
+	);        
+ }

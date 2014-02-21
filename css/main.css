@@ -353,9 +353,9 @@ textarea {
 	overflow: hidden;
 }
 #slider-center .als-item {
-	height: 152px;
-	width: 110px;
-	margin-right: 25px;
+    height: 190px;
+    margin-right: 12px;
+    width: 148px;
 }
 #slider-center .als-item span {
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
@@ -371,7 +371,7 @@ textarea {
     width: 100%;
 }
 #slider-right .als-item img, #slider-right .als-item a, #slider-center .als-item img, #slider-center .als-item a{
-	height: 80%;
+	height: 89%;
 	display: block;
 	text-decoration: none;
 }
@@ -534,10 +534,43 @@ ul.als-wrapper{
 	border: none;
 	overflow: none;
 }
+#simplemodal-container .embed-box iframe{
+	width: auto;
+	height: auto;
+}
 .als-prev{
 	float: left;
 	left:0px;
 }
 .als-prev img, .als-next img{
 	display: none;
+}
+
+#simplemodal-container.simplemodal-container a, #simplemodal-container.simplemodal-container p{
+	color: black;
+}
+#simplemodal-container .pvoverlayprev, #simplemodal-container .pvoverlaynext{
+	display: none;
+}
+.pvphoto, .pvmainct, .pvmain, .pvmain .pvmainimg, .pvmain .pvnavct, .pvmain .pvrelated, .pvmain .pvthmbnlct{
+	max-width: 599px;
+	max-height: 472px;
+}
+#simplemodal-container #pvstatusbar{
+	display: none;
+}
+#simplemodal-container .simplemodal-data{
+	padding: 0;
+}
+#simplemodal-container p{
+	text-align: justify;
+	margin: 1px;
+	padding: 1px;
+}
+.logos .infinitum img {
+    margin-top: 17%;
+    width: 100%;
+}
+.logos .pmsn img {
+    width: 82%;
 }
