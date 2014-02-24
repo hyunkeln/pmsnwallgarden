@@ -379,7 +379,7 @@ textarea {
 	display: block;
 	margin: 0 auto;
 	vertical-align: middle;
-	margin-left: -14%;
+	margin-left: -65%;
 }
 
 #slider-right .als-prev, #slider-right .als-next, #slider-center .als-prev, #slider-center .als-next {
@@ -503,38 +503,38 @@ ul.als-wrapper{
 }
 
 /*PMSN fixes*/
-#simplemodal-container .ro .ce{
+.simple-container .ro .ce{
 	width: 100%;
 }
-#simplemodal-container .svrichtxt p{
+.simple-container .svrichtxt p{
 	text-align: left;
 }
-#simplemodal-container li {
+.simple-container li {
     display: block;
     float: left;
     margin-right: 9px;
     width: 11%;
 }
-#simplemodal-container a{
+.simple-container a{
 	color: black;
 }
-#simplemodal-container .pvmain .pvthmbnlct{
+.simple-container .pvmain .pvthmbnlct{
 	display: none;
 }
-#simplemodal-container .pvcontrols > p {
+.simple-container .pvcontrols > p {
     float: right;
     margin: 0;
 }
-#simplemodal-container #scplatformComments{
+.simple-container #scplatformComments{
 	display: none;
 }
-#simplemodal-container iframe{
+.simple-container iframe{
 	width: 100%;
 	height: 100%;
 	border: none;
 	overflow: none;
 }
-#simplemodal-container .embed-box iframe{
+.simple-container .embed-box iframe{
 	width: auto;
 	height: auto;
 }
@@ -546,23 +546,23 @@ ul.als-wrapper{
 	display: none;
 }
 
-#simplemodal-container.simplemodal-container a, #simplemodal-container.simplemodal-container p{
+.simple-container.simplemodal-container a, .simple-container.simplemodal-container p{
 	color: black;
 }
-#simplemodal-container .pvoverlayprev, #simplemodal-container .pvoverlaynext{
+.simple-container .pvoverlayprev, .simple-container .pvoverlaynext{
 	display: none;
 }
 .pvphoto, .pvmainct, .pvmain, .pvmain .pvmainimg, .pvmain .pvnavct, .pvmain .pvrelated, .pvmain .pvthmbnlct{
-	max-width: 599px;
-	max-height: 472px;
+	max-width: auto;
+	max-height: auto;
 }
-#simplemodal-container #pvstatusbar{
+.simple-container #pvstatusbar{
 	display: none;
 }
-#simplemodal-container .simplemodal-data{
+.simple-container .simplemodal-data{
 	padding: 0;
 }
-#simplemodal-container p{
+.simple-container p{
 	text-align: justify;
 	margin: 1px;
 	padding: 1px;
@@ -573,4 +573,7 @@ ul.als-wrapper{
 }
 .logos .pmsn img {
     width: 82%;
+}
+.main_container .ro .ce{
+	width: 100%;
 }

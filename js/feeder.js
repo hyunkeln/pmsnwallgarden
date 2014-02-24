@@ -1,32 +1,47 @@
 //231x193
 $(document).ready(function () {
-	var url="";
-	var url2="";
-	var url3="";
-	//
-	url3 = "http://prodigy.msn.com/rss-slideshow-telmex.aspx"
-	$.ajax({
-		url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(url3),
-		dataType: 'json',
-		success: parseCenter
-  });
-  url2 = "http://olimpiadas.clarosports.com/mrss/video/clarosports.xml";//"http://prodigy.msn.com/rss-slideshow-telmex.aspx";
-  $.ajax({
-		url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(url2),
-		dataType: 'json',
-		success: parseRight
-  });
-  url = "http://prodigy.msn.com/rss-slideshow-telmex.aspx"
-
-  $.ajax({
-		url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(url),
-		dataType: 'json',
-		success: parseLeft
-  });
+	if(top.location.search.indexOf("getUrl")>-1) {
+		$(".main_container").empty().addClass("simple-container");
+		
+		getUrl(getURLParameter("getUrl"));
+	}else{
+		var url="";
+		var url2="";
+		var url3="";
+		//
+		url3 = "http://prodigy.msn.com/rss-slideshow-telmex.aspx"
+		$.ajax({
+			url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(url3),
+			dataType: 'json',
+			success: parseCenter
+		});
+		url2 = "http://olimpiadas.clarosports.com/mrss/video/clarosports.xml";//"http://prodigy.msn.com/rss-slideshow-telmex.aspx";
+		$.ajax({
+			url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(url2),
+			dataType: 'json',
+			success: parseRight
+		});
+		url = "http://prodigy.msn.com/rss-slideshow-telmex.aspx"
+		
+		$.ajax({
+			url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(url),
+			dataType: 'json',
+			success: parseLeft
+		});
+	}
 });
 
+function showUrl(url,obj){	
+	var title = $(obj).find("img").attr("title");
+	img = $(obj).find("img").attr("src");
+	top.location = top.location + "&title=" + encodeURI(title) + "&img=" + encodeURI(img) + "&getUrl=" + url; 
+}
 
-
+function getURLParameter(name) {
+    return decodeURI(
+        (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+    );
+}
 
 function parseCenter(data) {
 	data.responseData.xmlString = data.responseData.xmlString.replace(/msncp\:/g, 'msncp');
@@ -46,9 +61,10 @@ function parseCenter(data) {
 			$(newli).find("a").attr("onclick",'pageTracker._trackEvent("External Content", "Open", "'+item.link+'")');
 		}else{
 			$(newli).find("a").attr("href","javascript:void(0);");
-			$(newli).find("a").attr("onclick","getUrl('"+item.link+"',this)");
+			$(newli).find("a").attr("onclick","showUrl('"+item.link+"',this)");
 		}
 		$(newli).find("img").attr("src",itemimage);
+		$(newli).find("img").attr("title",item.title);
 		$(placeHolder).append(newli);
 	}
 	$("#slider-center").als({
@@ -77,7 +93,7 @@ function parseLeft(data) {
 			$(newli).find("a").attr("onclick",'pageTracker._trackEvent("External Content", "Open", "'+item.link+'")');
 		}else{
 			$(newli).find("a").attr("href","javascript:void(0);");
-			$(newli).find("a").attr("onclick","getUrl('"+item.link+"',this)");
+			$(newli).find("a").attr("onclick","showUrl('"+item.link+"',this)");
 		}
 		$(newli).find("img").attr("src",itemimage);
 		$(newli).find("img").attr("title",item.title);
@@ -112,7 +128,7 @@ function parseRight(data) {
 			
 		}else{
 			$(newli).find("a").attr("href","javascript:void(0);");
-			$(newli).find("a").attr("onclick","getUrl('"+item.link+"',this)");
+			$(newli).find("a").attr("onclick","showUrl('"+item.link+"',this)");
 		}
 		$(newli).find("img").attr("src",itemimage)
 		$(newli).find("img").attr("title",item.title);
@@ -134,16 +150,7 @@ function parseRight(data) {
  function getUrl(url,obj){
 	//url ="http://noticias.prodigy.msn.com/rnw/m%C3%A9xico-muerte-made-in-germany"; 
 	var loader = "<div class='loader'><img src='img/ajax-loader.gif'></div>";
-	$(loader).modal(        {containerCss:{
-                               backgroundColor:"transparent", 
-                               borderColor:"transparent", 
-                               height:50, 
-                               padding:0, 
-                               width:50
-                               },
-                           close:false
-                           }
-                   );
+
 	$.getJSON("http://query.yahooapis.com/v1/public/yql?"+
 	        "q=select%20*%20from%20html%20where%20url%3D%22"+
 	        encodeURIComponent(url)+
@@ -162,7 +169,7 @@ function parseRight(data) {
 		       else xmlsrc = data.results[0];
 		       if(placeHolder!=""){
 					$(xmlsrc).find(".editchoice").parent().parent().remove();
-					$(xmlsrc).find("script,#prearea1,#postarea1,form,.pst_dt,.editchoice").remove();
+					$(xmlsrc).find("script,#prearea1,#postarea1,form,.pst_dt,.editchoice,.pvthmbnlcrsl,.pvnavct,#pvstatusbar").remove();
 					
 					$(xmlsrc).prepend('<link rel="stylesheet" type="text/css" href="//media-social.s-msn.com/s/css/18.55/higorange/ue.es-mx.min.css" media="all" />');
 					$(xmlsrc).prepend('<link rel="stylesheet" type="text/css" href="http://blu.stc.s-msn.com/br/csl/css/8B7F19A00C010773401DD551FA7F95B0/gtl_sitegeneric.css" media="all" />');                       
@@ -172,32 +179,17 @@ function parseRight(data) {
 					$(this).attr("onclick","top.location='https://infinitummovil.net/InfinitumMovil/login.do'");
 					});
 		       }else{
-		           //xmlsrc = $("<iframe src='"+url+"'/>");
-		           var description = $(data.results[0]).find(".vxp_info_desc").text();
-		           //if(description=="") $(data.results[0]).find(".dcm-articleTitle").text();
-		           
-		           var title = $(obj).find("span").text();
-		           if(placeHolder == "") title = $(data.results[0]).find(".dcm-articleTitle").text();
+		           var title = getURLParameter("title");
 
 		           		           
-		           xmlsrc = $("<div></div>").append("<div class='pvtitle customload'><p>"+title+"</p></div>").append($(obj).find("img").clone().css("visibility","visible").show()).append("<p>"+description+"</p>");
+		           xmlsrc = $("<div></div>").append("<div class='pvtitle customload'><p>"+title+"</p></div>").append("<img src='"+getURLParameter("img")+"'>").append("<p></p>");
 		       }
-		       $.modal.close();
 		       $(xmlsrc).append("<button onclick='top.location=\"https://infinitummovil.net/InfinitumMovil/login.do\"'>Para ver más haz login</button>");
-		       $(xmlsrc).modal(        {containerCss:{
-		                                   backgroundColor:"#fff", 
-		                                   borderColor:"#fff", 
-		                                   height:500, 
-		                                   padding:0, 
-		                                   width:660
-		                                   },
-		                               overlayClose:true
-		                               }
-		                       );
+		       $(xmlsrc).appendTo(".main_container");
 		  // otherwise tell the world that something went wrong
 		  } else {
 		    var errormsg = '<p>Error: can\'t load the page.</p>';
-		    container.html(errormsg);
+		    $("body").append(errormsg);
 		  }
 		}
 	);        
