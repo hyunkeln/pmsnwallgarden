@@ -513,13 +513,13 @@ ul.als-wrapper{
     display: block;
     float: left;
     margin-right: 9px;
-    width: 11%;
+
 }
 .simple-container a{
 	color: black;
 }
-.simple-container .pvmain .pvthmbnlct{
-	display: none;
+.simple-container .pvmain{
+margin: auto;
 }
 .simple-container .pvcontrols > p {
     float: right;
@@ -550,7 +550,7 @@ ul.als-wrapper{
 	color: black;
 }
 .simple-container .pvoverlayprev, .simple-container .pvoverlaynext{
-	display: none;
+
 }
 .pvphoto, .pvmainct, .pvmain, .pvmain .pvmainimg, .pvmain .pvnavct, .pvmain .pvrelated, .pvmain .pvthmbnlct{
 	max-width: auto;

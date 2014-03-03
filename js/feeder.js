@@ -3,7 +3,7 @@ $(document).ready(function () {
 	if(top.location.search.indexOf("getUrl")>-1) {
 		$(".main_container").empty().addClass("simple-container");
 		
-		getUrl(getURLParameter("getUrl"));
+		getUrl(decodeURIComponent(getURLParameter("getUrl")));
 	}else{
 		var url="";
 		var url2="";
@@ -28,15 +28,20 @@ $(document).ready(function () {
 			dataType: 'json',
 			success: parseLeft
 		});
+		
 	}
 });
 
-function showUrl(url,obj){	
-	var title = $(obj).find("img").attr("title");
-	img = $(obj).find("img").attr("src");
-	top.location = top.location + "&title=" + encodeURI(title) + "&img=" + encodeURI(img) + "&getUrl=" + url; 
+function showUrl(url,obj,title,img){	
+	if(typeof title=="undefined") title = $(obj).find("img").attr("title");
+	if(typeof img=="undefined") img = $(obj).find("img").attr("src");
+	var location = top.location.href.replace(top.location.search, "");
+	top.location = location + "?usuarioSinSesion" + "&title=" + encodeURI(title) + "&img=" + encodeURI(img) + "&getUrl=" + encodeURIComponent(url); 
 }
-
+function goBack(){
+	var location = top.location.href.replace(top.location.search, "");
+	top.location = location + "?usuarioSinSesion";
+}
 function getURLParameter(name) {
     return decodeURI(
         (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
@@ -56,9 +61,11 @@ function parseCenter(data) {
 		var newli = li.clone();
 		$(newli).find("span").text(item.title);
 		if(top.location.search.indexOf("usuarioConSesion")>-1) {
+			$("#doLogin").hide();
 			$(newli).find("a").attr("href",item.link);
 			$(newli).find("a").attr("target","_blank");
 			$(newli).find("a").attr("onclick",'pageTracker._trackEvent("External Content", "Open", "'+item.link+'")');
+			
 		}else{
 			$(newli).find("a").attr("href","javascript:void(0);");
 			$(newli).find("a").attr("onclick","showUrl('"+item.link+"',this)");
@@ -148,9 +155,7 @@ function parseRight(data) {
 
 }
  function getUrl(url,obj){
-	//url ="http://noticias.prodigy.msn.com/rnw/m%C3%A9xico-muerte-made-in-germany"; 
 	var loader = "<div class='loader'><img src='img/ajax-loader.gif'></div>";
-
 	$.getJSON("http://query.yahooapis.com/v1/public/yql?"+
 	        "q=select%20*%20from%20html%20where%20url%3D%22"+
 	        encodeURIComponent(url)+
@@ -169,14 +174,15 @@ function parseRight(data) {
 		       else xmlsrc = data.results[0];
 		       if(placeHolder!=""){
 					$(xmlsrc).find(".editchoice").parent().parent().remove();
-					$(xmlsrc).find("script,#prearea1,#postarea1,form,.pst_dt,.editchoice,.pvthmbnlcrsl,.pvnavct,#pvstatusbar").remove();
+					//$(xmlsrc).find("script,#prearea1,#postarea1,form,.pst_dt,.editchoice,.pvnavct,#pvstatusbar").remove();
 					
 					$(xmlsrc).prepend('<link rel="stylesheet" type="text/css" href="//media-social.s-msn.com/s/css/18.55/higorange/ue.es-mx.min.css" media="all" />');
 					$(xmlsrc).prepend('<link rel="stylesheet" type="text/css" href="http://blu.stc.s-msn.com/br/csl/css/8B7F19A00C010773401DD551FA7F95B0/gtl_sitegeneric.css" media="all" />');                       
 					$(xmlsrc).find("a").each(function(){
 					var href=$(this).attr("href"); 
+					$(this).attr("onclick","showUrl('"+href+"',this,'"+getURLParameter("title")+"','"+getURLParameter("img")+"')");
 					$(this).attr("href","javascript:void(0)");
-					$(this).attr("onclick","top.location='https://infinitummovil.net/InfinitumMovil/login.do'");
+					
 					});
 		       }else{
 		           var title = getURLParameter("title");
@@ -184,6 +190,7 @@ function parseRight(data) {
 		           		           
 		           xmlsrc = $("<div></div>").append("<div class='pvtitle customload'><p>"+title+"</p></div>").append("<img src='"+getURLParameter("img")+"'>").append("<p></p>");
 		       }
+		       $(xmlsrc).append("<button onclick='goBack();'>Regresar</button>");
 		       $(xmlsrc).append("<button onclick='top.location=\"https://infinitummovil.net/InfinitumMovil/login.do\"'>Para ver más haz login</button>");
 		       $(xmlsrc).appendTo(".main_container");
 		  // otherwise tell the world that something went wrong
