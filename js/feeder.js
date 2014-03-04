@@ -7,29 +7,44 @@ $(document).ready(function () {
 		getUrl(decodeURIComponent(getURLParameter("getUrl")));
 	}else{
 		var url="";
-		var url2="";
+		var urlRight="";
 		var url3="";
 		//
-		url3 = "http://prodigy.msn.com/rss-slideshow-telmex.aspx"
+		urlNoLogin = "http://prodigy.msn.com/rss-slideshow-telmex.aspx";
+		url1 = "http://noticias.prodigy.msn.com/rss-carrouselinfopane.aspx";
+		url2 = "http://estilos.prodigy.msn.com/rss-carrouselinfopane.aspx";
+		url3 = "http://entretenimiento.prodigy.msn.com/rss-carrouselinfopane.aspx";
+		
+		urlRight = "http://olimpiadas.clarosports.com/mrss/video/clarosports.xml";//"http://prodigy.msn.com/rss-slideshow-telmex.aspx";
 		$.ajax({
-			url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(url3),
-			dataType: 'json',
-			success: parseCenter
-		});
-		url2 = "http://olimpiadas.clarosports.com/mrss/video/clarosports.xml";//"http://prodigy.msn.com/rss-slideshow-telmex.aspx";
-		$.ajax({
-			url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(url2),
+			url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(urlRight),
 			dataType: 'json',
 			success: parseRight
 		});
-		url = "http://prodigy.msn.com/rss-slideshow-telmex.aspx"
 		
-		$.ajax({
-			url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(url),
-			dataType: 'json',
-			success: parseLeft
-		});
-		
+		if(top.location.search.indexOf("usuarioConSesion")>-1) {
+			$.when($.ajax({
+				url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(url1),
+				dataType: 'json'
+			}),
+			$.ajax({
+				url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(url2),
+				dataType: 'json'
+			}),
+			$.ajax({
+				url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(url3),
+				dataType: 'json'
+			})
+			).done(function(data1,data2,data3){
+				parseTriple(data1[0],data2[0],data3[0]);
+			});
+		}else{
+			$.ajax({
+				url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(urlNoLogin),
+				dataType: 'json',
+				success: parseUnique
+			});
+		}
 	}
 });
 
@@ -48,7 +63,49 @@ function getURLParameter(name) {
         (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
     );
 }
-
+function parseTriple(data1,data2,data3){
+	console.log(data1);
+	console.log(data2);
+	console.log(data3);
+	for(var i=0;i<data2.responseData.feed.entries.length/2;i++)
+		data1.responseData.feed.entries[data1.responseData.feed.entries.length] = data2.responseData.feed.entries[i];
+	for(var i=data2.responseData.feed.entries.length/2;i<data2.responseData.feed.entries.length;i++)
+		data3.responseData.feed.entries[data3.responseData.feed.entries.length] = data2.responseData.feed.entries[i];
+	xmlString = $(data1.responseData.xmlString);
+	xmlString2 = $(data2.responseData.xmlString);
+	xmlString3 = $(data3.responseData.xmlString);
+	var items = $(xmlString2).find("item").length;
+	$(xmlString2).clone().find("item").each(function(i){
+		if(i<items/2) $(xmlString).find("item:last").after($(this));
+		else $(xmlString3).find("item:last").after($(this));
+	});
+	data1.responseData.xmlString = $(xmlString).wrapAll('<div></div>').parent().html(); 
+	data3.responseData.xmlString = $(xmlString3).wrapAll('<div></div>').parent().html(); 
+	parseLeft(data1);
+	parseCenter(data3);
+}
+function parseUnique(data){
+	var data1 = jQuery.extend(true, {}, data);
+	data1.responseData.feed.entries = new Array();
+	var data2 = jQuery.extend(true, {}, data1);
+	for(var i=0;i<data.responseData.feed.entries.length/2;i++)
+		data1.responseData.feed.entries[i] = data.responseData.feed.entries[i];
+	xmlString = $(data2.responseData.xmlString);
+	var items = $(xmlString).find("item").length;
+	$(xmlString).find("item").each(function(i){
+		if(i<items/2) $(this).remove();
+	});
+	$(xmlString).clone().find("item").each(function(i){
+		$(xmlString).find("item:last").after($(this));
+	});
+	data2.responseData.xmlString = $(xmlString).wrapAll('<div></div>').parent().html(); 
+	for(j=0;j<2;j++)
+		for(var i=data.responseData.feed.entries.length/2;i<data.responseData.feed.entries.length;i++)
+			data2.responseData.feed.entries[data2.responseData.feed.entries.length] = data.responseData.feed.entries[i];
+	
+	parseLeft(data1);
+	parseCenter(data2);
+}
 function parseCenter(data) {
 	data.responseData.xmlString = data.responseData.xmlString.replace(/msncp\:/g, 'msncp');
 	var placeHolder = "ul.slider";
@@ -71,8 +128,8 @@ function parseCenter(data) {
 			$(newli).find("a").attr("href","javascript:void(0);");
 			$(newli).find("a").attr("onclick","showUrl('"+item.link+"',this)");
 		}
-		$(newli).find("img").attr("src",itemimage);
-		$(newli).find("img").attr("title",item.title);
+		$(newli).find(".img").css("background-image","url("+itemimage+")");
+		//$(newli).find("img").attr("title",item.title);
 		$(placeHolder).append(newli);
 	}
 	$("#slider-center").als({
@@ -85,6 +142,7 @@ function parseCenter(data) {
 }
 
 function parseLeft(data) {
+	
 	data.responseData.xmlString = data.responseData.xmlString.replace(/msncp\:/g, 'msncp');
 	var placeHolder = "#slider-left";
 	var items = data.responseData.feed.entries;
@@ -116,7 +174,6 @@ function parseLeft(data) {
 	    controlNavThumbs:false,
 	    directionNav: false
     });
-
 }
 function parseRight(data) {
 	data.responseData.xmlString = data.responseData.xmlString.replace(/msncp\:/g, 'msncp');
@@ -194,7 +251,7 @@ function cbfunc(data){
 
 				$(xmlsrc).find(".editchoice").parent().parent().remove();
 				$(xmlsrc)
-				.find("noscript,script,#prearea1,#postarea1,form,.pst_dt,.editchoice,.pvnavct,#pvstatusbar,.gallerytoolbar,.slideshow.loading,.caption-container,.outeradcontainer,.pollheading,.poll,.morecontent").remove();
+				.find("noscript,script,#prearea1,#postarea1,form,.pst_dt,.editchoice,.pvnavct,#pvstatusbar,.gallerytoolbar,.slideshow.loading,.caption-container,.outeradcontainer,.pollheading,.poll,.morecontent,#imagemapsubheader").remove();
 				
 				$(xmlsrc).prepend('<link rel="stylesheet" type="text/css" href="//media-social.s-msn.com/s/css/18.55/higorange/ue.es-mx.min.css" media="all" />');
 				$(xmlsrc).prepend('<link rel="stylesheet" type="text/css" href="http://blu.stc.s-msn.com/br/csl/css/8B7F19A00C010773401DD551FA7F95B0/gtl_sitegeneric.css" media="all" />');                       

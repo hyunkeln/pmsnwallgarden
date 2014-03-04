@@ -370,16 +370,18 @@ textarea {
     text-align: left;
     width: 100%;
 }
-#slider-right .als-item img, #slider-right .als-item a, #slider-center .als-item img, #slider-center .als-item a{
-	height: 89%;
+#slider-right .als-item img, #slider-right .als-item a, #slider-center .als-item .img, #slider-center .als-item a{
+	height: 86%;
 	display: block;
 	text-decoration: none;
 }
-#slider-right .als-item img, #slider-center .als-item img {
+#slider-right .als-item img, #slider-center .als-item .img {
 	display: block;
 	margin: 0 auto;
 	vertical-align: middle;
-	margin-left: -65%;
+	/*margin-left: -65%;*/
+	background: transparent no-repeat center top;
+	background-size: cover;
 }
 
 #slider-right .als-prev, #slider-right .als-next, #slider-center .als-prev, #slider-center .als-next {
