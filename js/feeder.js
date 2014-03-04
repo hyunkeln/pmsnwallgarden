@@ -1,7 +1,8 @@
 //231x193
 $(document).ready(function () {
 	if(top.location.search.indexOf("getUrl")>-1) {
-		$(".main_container").empty().addClass("simple-container");
+		var logos = $(".container.logos");
+		$(".main_container").empty().addClass("simple-container").append(logos);
 		
 		getUrl(decodeURIComponent(getURLParameter("getUrl")));
 	}else{
@@ -154,50 +155,68 @@ function parseRight(data) {
     });
 
 }
- function getUrl(url,obj){
+var url,obj;
+ function getUrl(u,o){
+ 	url = u;
+ 	obj = o;
 	var loader = "<div class='loader'><img src='img/ajax-loader.gif'></div>";
-	$.getJSON("http://query.yahooapis.com/v1/public/yql?"+
+	$.ajax({url:"http://query.yahooapis.com/v1/public/yql?"+
 	        "q=select%20*%20from%20html%20where%20url%3D%22"+
 	        encodeURIComponent(url)+
 	        "%22&format=xml'&callback=?",
-		// this function gets the data from the successful 
-		// JSON-P call
-		function(data){
-		  //pageTracker._trackEvent("External Content", "Modal", url);
-		  // if there is data, filter it and render it out
-		  if(data.results[0]){ 
-		       var placeHolder = "#area1";
-		       if(url.indexOf("clarosports")>-1) placeHolder = "article.dcm-article";
-		       if(url.indexOf("video.mx.msn.com")>-1 || url.indexOf("clarosports")>-1) placeHolder ="";
-		       var xmlsrc ="";
-		       if(placeHolder!="") xmlsrc = $(data.results[0]).find(placeHolder);
-		       else xmlsrc = data.results[0];
-		       if(placeHolder!=""){
-					$(xmlsrc).find(".editchoice").parent().parent().remove();
-					//$(xmlsrc).find("script,#prearea1,#postarea1,form,.pst_dt,.editchoice,.pvnavct,#pvstatusbar").remove();
-					
-					$(xmlsrc).prepend('<link rel="stylesheet" type="text/css" href="//media-social.s-msn.com/s/css/18.55/higorange/ue.es-mx.min.css" media="all" />');
-					$(xmlsrc).prepend('<link rel="stylesheet" type="text/css" href="http://blu.stc.s-msn.com/br/csl/css/8B7F19A00C010773401DD551FA7F95B0/gtl_sitegeneric.css" media="all" />');                       
-					$(xmlsrc).find("a").each(function(){
-					var href=$(this).attr("href"); 
-					$(this).attr("onclick","showUrl('"+href+"',this,'"+getURLParameter("title")+"','"+getURLParameter("img")+"')");
-					$(this).attr("href","javascript:void(0)");
-					
-					});
-		       }else{
-		           var title = getURLParameter("title");
-
-		           		           
-		           xmlsrc = $("<div></div>").append("<div class='pvtitle customload'><p>"+title+"</p></div>").append("<img src='"+getURLParameter("img")+"'>").append("<p></p>");
-		       }
-		       $(xmlsrc).append("<button onclick='goBack();'>Regresar</button>");
-		       $(xmlsrc).append("<button onclick='top.location=\"https://infinitummovil.net/InfinitumMovil/login.do\"'>Para ver más haz login</button>");
-		       $(xmlsrc).appendTo(".main_container");
-		  // otherwise tell the world that something went wrong
-		  } else {
-		    var errormsg = '<p>Error: can\'t load the page.</p>';
-		    $("body").append(errormsg);
-		  }
+	        jsonp: 'callback',
+	        dataType: 'jsonp',
+	        jsonpCallback : "cbfunc"
 		}
 	);        
  }
+ 
+function cbfunc(data){
+
+	  //pageTracker._trackEvent("External Content", "Modal", url);
+	  // if there is data, filter it and render it out
+	  if(data.results[0]){ 
+	  	   data.results[0] = data.results[0].replace(/onload/g, 'noload');
+	       var placeHolder = "#area1";
+	       if(url.indexOf("clarosports")>-1) placeHolder = "article.dcm-article";
+	       if(url.indexOf("video.mx.msn.com")>-1 || url.indexOf("clarosports")>-1 || data.results[0].indexOf("videocontainer")>-1) placeHolder ="";
+	       var xmlsrc ="";
+	       if(placeHolder!=""){
+		       xmlsrc = $(data.results[0]).find(placeHolder);
+		       
+		       if(typeof $(xmlsrc).html()=="undefined") {
+		       	
+		       	xmlsrc = $(data.results[0]).find("#content");
+		       }
+	       }
+	       else xmlsrc = data.results[0];
+	       if(placeHolder!=""){
+
+				$(xmlsrc).find(".editchoice").parent().parent().remove();
+				$(xmlsrc)
+				.find("noscript,script,#prearea1,#postarea1,form,.pst_dt,.editchoice,.pvnavct,#pvstatusbar,.gallerytoolbar,.slideshow.loading,.caption-container,.outeradcontainer,.pollheading,.poll,.morecontent").remove();
+				
+				$(xmlsrc).prepend('<link rel="stylesheet" type="text/css" href="//media-social.s-msn.com/s/css/18.55/higorange/ue.es-mx.min.css" media="all" />');
+				$(xmlsrc).prepend('<link rel="stylesheet" type="text/css" href="http://blu.stc.s-msn.com/br/csl/css/8B7F19A00C010773401DD551FA7F95B0/gtl_sitegeneric.css" media="all" />');                       
+				$(xmlsrc).find("a").each(function(){
+				var href=$(this).attr("href"); 
+				$(this).attr("onclick","showUrl('"+href+"',this,'"+getURLParameter("title")+"','"+getURLParameter("img")+"')");
+				$(this).attr("href","javascript:void(0)");
+				
+				});
+	       }else{
+	           var title = getURLParameter("title");
+
+	           		           
+	           xmlsrc = $("<div></div>").append("<div class='pvtitle customload'><p>"+title+"</p></div>").append("<img src='"+getURLParameter("img")+"'>").append("<p></p>");
+	       }
+	       $(xmlsrc).append("<button onclick='goBack();'>Regresar</button>");
+	       $(xmlsrc).append("<button onclick='top.location=\"https://infinitummovil.net/InfinitumMovil/login.do\"'>Para ver más haz login</button>");
+	       $(xmlsrc).appendTo(".main_container");
+       
+	  // otherwise tell the world that something went wrong
+	  } else {
+	    var errormsg = '<p>Error: can\'t load the page.</p>';
+	    $("body").append(errormsg);
+	  }
+}
