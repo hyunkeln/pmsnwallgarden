@@ -1,5 +1,7 @@
 //231x193
 $(document).ready(function () {
+	if(!top.location.search.indexOf("usuarioConSesion")>-1) 
+		$(".container.logos a").attr("href","javascript:void(0);").attr("target","_self");
 	if(top.location.search.indexOf("getUrl")>-1) {
 		var logos = $(".container.logos");
 		$(".main_container").empty().addClass("simple-container").append(logos);
