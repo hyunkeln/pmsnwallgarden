@@ -238,7 +238,7 @@ function cbfunc(data){
 	  	   data.results[0] = data.results[0].replace(/onload/g, 'noload');
 	       var placeHolder = "#area1";
 	       if(url.indexOf("clarosports")>-1) placeHolder = "article.dcm-article";
-	       if(url.indexOf("video.mx.msn.com")>-1 || url.indexOf("clarosports")>-1 || data.results[0].indexOf("videocontainer")>-1) placeHolder ="";
+	       if(url.indexOf("video.mx.msn.com")>-1 || url.indexOf("clarosports")>-1) placeHolder ="";
 	       var xmlsrc ="";
 	       if(placeHolder!=""){
 		       xmlsrc = $(data.results[0]).find(placeHolder);
