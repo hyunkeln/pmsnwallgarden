@@ -24,7 +24,7 @@ $(document).ready(function () {
 			success: parseRight
 		});
 		
-		if(top.location.search.indexOf("usuarioConSesion")>-1) {
+		if(top.location.search.indexOf("usuarioConSesion")>-1 || true) {
 			$.when($.ajax({
 				url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=json_xml&num=100&callback=?&q='+ encodeURIComponent(url1),
 				dataType: 'json'
