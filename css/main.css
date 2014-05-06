@@ -588,3 +588,23 @@ h2{
 .svheader h1 {
 	text-align: left;
 }
+
+
+@media (max-width: 321px) {
+	.nivo-caption, .nivo-controlNav{
+		display:none;
+	}
+	div.last.white{
+		margin-top: 12px;
+	}
+	.als-container span.als-next{
+		left: 85%;
+	}
+	div, iframe{
+		max-width: 310px !important;
+	}
+	img{
+		max-width: 280px !important;
+		height: auto !important;
+	}
+}

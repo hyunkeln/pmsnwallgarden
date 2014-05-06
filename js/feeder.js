@@ -134,13 +134,22 @@ function parseCenter(data) {
 		//$(newli).find("img").attr("title",item.title);
 		$(placeHolder).append(newli);
 	}
-	$("#slider-center").als({
-		visible_items: 5,
-		scrolling_items: 3,
-		orientation: "horizontal",
-		circular: "yes",
-		autoscroll: "no"
-	});
+	if($("body").width()<321)
+		$("#slider-center").als({
+			visible_items: 1,
+			scrolling_items: 1,
+			orientation: "horizontal",
+			circular: "yes",
+			autoscroll: "no"
+		});
+	else 
+		$("#slider-center").als({
+			visible_items: 5,
+			scrolling_items: 3,
+			orientation: "horizontal",
+			circular: "yes",
+			autoscroll: "no"
+		});
 }
 
 function parseLeft(data) {
